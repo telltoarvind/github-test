@@ -1,0 +1,7 @@
+hive -e "create table genting.test ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' 
+as select * from genting.fact_mkt_prog_det_may"
+hadoop fs -rm test.csv
+hadoop fs -getmerge hdfs://nn-galepartners.s3s.altiscale.com:8020/hive/genting.db/test test.csv
+hadoop fs -put test.csv hdfs://nn-galepartners.s3s.altiscale.com:8020/user/suhas
+hadoop distcp hdfs://nn-galepartners.s3s.altiscale.com:8020/user/suhas/test.csv s3n://AKIAIVSJEGNSKGY5CVSA:ZDpjAllPySK3CwMIrdau4udrYz+wn9gjzCO0SG1y@gale-koala-loaddata/qcload_temp/test.csv
+
